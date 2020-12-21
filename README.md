@@ -1,1 +1,1 @@
-# formal-language-second-practicum
+# Базовый практический вариант. Алгоритм Эрли
