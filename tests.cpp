@@ -6,6 +6,12 @@ TEST(FIRST, INCORRECT) {
   EXPECT_EQ(answer, false);
 }
 
+TEST(SECOND, CORRECT) {
+  auto brackets = ContextFreeGrammar({"S->", "S->aSaS", "S->SbSb"});
+  bool answer = Earley(brackets).InGrammar("()");
+  EXPECT_EQ(answer, true);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
