@@ -7,7 +7,7 @@ TEST(FIRST, INCORRECT) {
 }
 
 TEST(SECOND, CORRECT) {
-  auto brackets = ContextFreeGrammar({"S->", "S->aSaS", "S->SbSb"});
+  auto brackets = ContextFreeGrammar({"S->", "S->SbSb"});
   bool answer = Earley(brackets).InGrammar("()");
   EXPECT_EQ(answer, true);
 }
