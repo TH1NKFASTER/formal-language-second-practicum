@@ -1,3 +1,5 @@
+#include <utility>
+
 #include "ContextFreeGrammar.h"
 
 class Earley {
@@ -8,7 +10,7 @@ class Earley {
 
   class Situation {
    public:
-    Situation(ContextFreeGrammar::Rule rule, size_t point, size_t i) : rule(rule), point(point), i(i) {};
+    Situation(ContextFreeGrammar::Rule rule, size_t point, size_t i) : rule(std::move(rule)), point(point), i(i) {};
     bool operator<(const Situation &another) const;
 
     ContextFreeGrammar::Rule rule;

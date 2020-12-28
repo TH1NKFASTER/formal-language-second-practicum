@@ -8,7 +8,13 @@ class ContextFreeGrammar {
   std::set<char> terminals_;
  public:
   class ERROR;
-  class Rule;
+  class Rule{
+   public:
+    Rule() = default;
+    Rule(char non_terminal, std::string expression) : non_terminal(non_terminal), expression(std::move(expression)) {}
+    char non_terminal{};
+    std::string expression{};
+  };
   explicit ContextFreeGrammar(const std::vector<std::string> &vector_rules);
   friend std::istream &operator>>(std::istream &in, ContextFreeGrammar &grammar);
   ContextFreeGrammar() = default;
