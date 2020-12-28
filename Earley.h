@@ -9,13 +9,13 @@ class Earley {
   class Situation {
    public:
     Situation(ContextFreeGrammar::Rule rule, size_t point, size_t i)
-        : rule_(std::move(rule)), point_(point), i_(i) {};
+        : rule_(rule), point(point), i_(i) {};
     bool operator<(const Situation &another) const;
 
-    std::pair<char, std::string> rule_;
+    ContextFreeGrammar::Rule rule;
 
-    size_t i_;
+    size_t i;
 
-    size_t point_;
+    size_t point;
   };
 };
