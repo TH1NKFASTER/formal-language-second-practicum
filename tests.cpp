@@ -24,6 +24,24 @@ TEST(FOURTH, CORRECT) {
   EXPECT_EQ(answer, true);
 }
 
+TEST(FIFTH, INCORRECT) {
+  auto brackets = ContextFreeGrammar({"S->", "S->SaSb"});
+  bool answer = Earley(brackets).InGrammar("ba");
+  EXPECT_EQ(answer, false);
+}
+
+TEST(SIXTH, INCORRECT) {
+  auto brackets = ContextFreeGrammar({"S->", "S->SaSb"});
+  bool answer = Earley(brackets).InGrammar("aba");
+  EXPECT_EQ(answer, false);
+}
+
+TEST(SEVENTH, CORRECT) {
+  auto brackets = ContextFreeGrammar({"S->", "S->SaSb"});
+  bool answer = Earley(brackets).InGrammar("aabb");
+  EXPECT_EQ(answer, true);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
