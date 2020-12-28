@@ -5,7 +5,32 @@ Earley::Earley(ContextFreeGrammar grammar) : grammar_(grammar) {
 }
 
 bool Earley::InGrammar(std::string word) {
-  return false;
+  D_states_ = {};
+  D_states_.resize(word.size() + 1);
+  D_states_[0].insert(Situation(grammar_.rules[0], 0, 0));
+
+  size_t current_size = D_states_[0].size();
+  Complete(0);
+  Predict(0);
+
+  while (D_states_[0].size() != current_size) {
+    current_size = D_states_[0].size();
+    Complete(0);
+    Predict(0);
+  }
+
+  for (size_t i = 1; i <= word.size(); ++i) {
+    Scan(i, word[i - 1]);
+    current_size = D_states_[i].size();
+    Complete(i);
+    Predict(i);
+    while (D_states_[i].size() != current_size) {
+      current_size = D_states_[i].size();
+      Complete(i);
+      Predict(i);
+    }
+  }
+  return D_states_[word.size()].count(Situation(grammar_.rules[0], 1, 0));
 }
 
 bool operator<(const Earley::Situation &a, const Earley::Situation &b) {
@@ -27,9 +52,9 @@ void Earley::Scan(size_t number, char symbol) {
   if (number == 0) {
     return;
   }
-  for (auto &st : D_states_[number]) {
+  for (auto &st : D_states_[number - 1]) {
     if (st.rule.expression[st.point] == symbol) {
-      D_states_[number + 1].emplace(st.rule, st.point + 1, st.i);
+      D_states_[number].emplace(st.rule, st.point + 1, st.i);
     }
   }
 }
