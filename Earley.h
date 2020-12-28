@@ -6,7 +6,7 @@ class Earley {
  public:
   explicit Earley(ContextFreeGrammar grammar);
 
-  bool InGrammar(const std::string &word);
+  bool InGrammar(std::string word);
 
   class Situation {
    public:
