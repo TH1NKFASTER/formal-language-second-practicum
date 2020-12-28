@@ -13,7 +13,7 @@ class ContextFreeGrammar::Rule {
   Rule() = default;
   Rule(char non_terminal, std::string expression) : non_terminal(non_terminal), expression(std::move(expression)) {}
   char non_terminal{};
-  std::string expression;
+  std::string expression{};
 };
 
 bool ContextFreeGrammar::CheckRule(const std::string &rule) {
