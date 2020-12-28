@@ -1,6 +1,6 @@
 #include "Earley.h"
 
-Earley::Earley(ContextFreeGrammar) {
+Earley::Earley(ContextFreeGrammar grammar) : grammar_(grammar) {
 
 }
 bool Earley::InGrammar(const std::string &word) {

@@ -4,7 +4,7 @@
 
 class Earley {
  public:
-  explicit Earley(ContextFreeGrammar);
+  explicit Earley(ContextFreeGrammar grammar);
   bool InGrammar(const std::string &word);
  private:
   void Predict(size_t number);
@@ -22,4 +22,5 @@ class Earley {
 
     size_t point;
   };
+  ContextFreeGrammar grammar_;
 };
