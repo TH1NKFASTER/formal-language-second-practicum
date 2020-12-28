@@ -5,7 +5,7 @@ Earley::Earley(ContextFreeGrammar grammar) : grammar_(grammar) {
 }
 
 bool Earley::InGrammar(std::string word) {
-
+  return false;
 }
 
 bool operator<(const Earley::Situation &a, const Earley::Situation &b) {
