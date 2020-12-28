@@ -37,9 +37,30 @@ TEST(SIXTH, INCORRECT) {
 }
 
 TEST(SEVENTH, CORRECT) {
+  std::string word;
+  for (int i = 0; i < 1000; ++i) {
+    word.push_back('a');
+  }
+  for (int i = 0; i < 1000; ++i) {
+    word.push_back('b');
+  }
   auto brackets = ContextFreeGrammar({"S->", "S->SaSb"});
-  bool answer = Earley(brackets).InGrammar("aabb");
+  bool answer = Earley(brackets).InGrammar(word);
   EXPECT_EQ(answer, true);
+}
+
+TEST(EIGTH, CORRECT) {
+  std::string word;
+  for (int i = 0; i < 1000; ++i) {
+    word.push_back('a');
+  }
+  for (int i = 0; i < 1000; ++i) {
+    word.push_back('b');
+  }
+  word[0] = 'b';
+  auto brackets = ContextFreeGrammar({"S->", "S->SaSb"});
+  bool answer = Earley(brackets).InGrammar(word);
+  EXPECT_EQ(answer, false);
 }
 
 int main(int argc, char **argv) {
