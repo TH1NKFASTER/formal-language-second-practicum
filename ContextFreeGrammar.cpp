@@ -16,6 +16,21 @@ class ContextFreeGrammar::Rule {
   std::string expression;
 };
 
+bool ContextFreeGrammar::CheckRule(const std::string &rule) {
+  if (rule.size() <= 4 || rule.substr(1, 2) != "->" || !this->non_terminals_.count(rule[0])) {
+    throw ContextFreeGrammar::ERROR();
+  }
+  std::string expression = rule.substr(3);
+  bool good = true;
+  for (const auto &c : expression) {
+    if (!this->terminals_.count(c)) {
+      good = false;
+      break;
+    }
+  }
+  return good;
+}
+
 std::istream &operator>>(std::istream &in, ContextFreeGrammar &grammar) {
   size_t number_of_rules;
   in >> number_of_rules;
@@ -23,20 +38,9 @@ std::istream &operator>>(std::istream &in, ContextFreeGrammar &grammar) {
   for (size_t i = 0; i < number_of_rules; ++i) {
     std::string rule;
     in >> rule;
-    if (rule.size() <= 4 || rule.substr(1, 2) != "->" || !grammar.non_terminals_.count(rule[0])) {
-      throw ContextFreeGrammar::ERROR();
-    }
-    char non_terminal = rule[0];
-    std::string expression = rule.substr(3, rule.size() - 3);
-    bool good = true;
-    for (const auto &c : expression) {
-      if (!grammar.terminals_.count(c)) {
-        good = false;
-        break;
-      }
-    }
-    if (good) {
-      grammar.rules.emplace_back(non_terminal, expression);
+
+    if (grammar.CheckRule(rule)) {
+      grammar.rules.emplace_back(rule[0], rule.substr(3));
     } else {
       throw ContextFreeGrammar::ERROR();
     }
@@ -45,9 +49,13 @@ std::istream &operator>>(std::istream &in, ContextFreeGrammar &grammar) {
   return in;
 }
 
-ContextFreeGrammar::ContextFreeGrammar(const std::vector<std::string> &rules) {
-
-}
-bool ContextFreeGrammar::GoodRule(ContextFreeGrammar::Rule rule) {
-  return false;
+ContextFreeGrammar::ContextFreeGrammar(const std::vector<std::string> &vector_rules) {
+  rules = {Rule('$', "S")};
+  for (auto &rule: vector_rules) {
+    if (CheckRule(rule)) {
+      rules.emplace_back(rule[0], rule.substr(3));
+    } else {
+      throw ContextFreeGrammar::ERROR();
+    }
+  }
 }
