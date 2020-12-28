@@ -7,9 +7,9 @@ SET(CMAKE_INSTALL_RPATH "${PROJECT_SOURCE_DIR}/bin")
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
-add_executable(formal_languages_second_practicum main.cpp ContextFreeGrammar.cpp Early.cpp)
+add_executable(formal_languages_second_practicum main.cpp ContextFreeGrammar.cpp Earley.cpp)
 enable_testing()
-add_executable(Test tests.cpp ContextFreeGrammar.cpp Early.cpp)
+add_executable(Test tests.cpp ContextFreeGrammar.cpp Earley.cpp)
 
 target_link_libraries(Test Threads::Threads ${GTEST_LIBRARIES} ${GMOCK_BOTH_LIBRARIES})
 set(CMAKE_EXE_LINKER_FLAGS --coverage)

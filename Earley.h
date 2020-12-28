@@ -1,11 +1,11 @@
 #include "ContextFreeGrammar.h"
 
-class Early {
+class Earley {
  public:
-  explicit Early(ContextFreeGrammar);
+  explicit Earley(ContextFreeGrammar);
   bool InGrammar(const std::string &word);
  private:
-  class ERROR;
+
   class Situation {
    public:
     Situation(std::pair<char, std::string> rule, size_t point, size_t i)
