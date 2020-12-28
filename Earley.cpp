@@ -18,7 +18,11 @@ void Earley::Predict(size_t number) {
 }
 
 void Earley::Scan(size_t number, char symbol) {
-
+  for (auto st : D_states_[j]) {
+    if (st.rule.second[st.point_] == symbol) {
+      D_states_[j + 1].emplace(st.rule, st.point + 1, st.i);
+    }
+  }
 }
 
 void Earley::Complete(size_t number) {
